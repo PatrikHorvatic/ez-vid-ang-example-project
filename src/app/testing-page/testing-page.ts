@@ -100,6 +100,10 @@ import { Subscription } from 'rxjs';
 export class TestingPage implements AfterViewInit, OnInit, OnDestroy {
   private readonly player = viewChild.required<EvaPlayer>('evaVideoPlayer');
   private pipSub: Subscription | null = null;
+  private cinemaSub: Subscription | null = null;
+
+  /** Drives the sidebar-collapsing layout — see testing-page.scss `.watch-layout.cinema-active`. */
+  protected readonly isCinemaModeActive = signal(false);
 
   private get api(): EvaApi {
     return this.player().playerMainAPI;
@@ -219,7 +223,6 @@ export class TestingPage implements AfterViewInit, OnInit, OnDestroy {
   // ─── Settings panel ────────────────────────────────────────────────────────
 
   private isLooping = false;
-  private isCinemaMode = false;
 
   protected readonly settingsItems = signal<EvaSettingsMenuItem[]>([
     {
@@ -254,10 +257,16 @@ export class TestingPage implements AfterViewInit, OnInit, OnDestroy {
         )
       );
     });
+
+    this.cinemaSub = this.api.cinemaModeSubject.subscribe((active) => {
+      this.isCinemaModeActive.set(active);
+      this.updateToggle('cinema', active);
+    });
   }
 
   public ngOnDestroy(): void {
     this.pipSub?.unsubscribe();
+    this.cinemaSub?.unsubscribe();
   }
 
   protected onSettingChanged(event: EvaSettingsMenuEvent): void {
@@ -277,9 +286,7 @@ export class TestingPage implements AfterViewInit, OnInit, OnDestroy {
         break;
 
       case 'cinema':
-        this.isCinemaMode = !this.isCinemaMode;
-        this.api.cinemaModeSubject.next(this.isCinemaMode);
-        this.updateToggle('cinema', this.isCinemaMode);
+        this.api.cinemaModeSubject.next(!this.isCinemaModeActive());
         break;
 
       case 'pip':

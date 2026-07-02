@@ -1,60 +1,130 @@
-<eva-player #evaVideoPlayer [id]="'vid'" [evaVideoSources]="[]" [evaVideoConfiguration]="videoConfiguration()"
-	[evaKeyboardShortcutsEnabled]="true" [evaKeyboardShortcutsConfiguration]="keyboardConfig()"
-	[evaVideoTracks]="videoTracks()" [evaLocalStorageEnabled]="true" [evaLocalStorageKey]="'MY_PLAYER'"
-	[evaLocalStorageConfiguration]="{ volume: true, playbackSpeed: true, cinemaMode: true, loop: true }" evaHls
-	[evaHlsSrc]="hlsSource()">
-	<!-- Overlays -->
-	<eva-overlay-play />
-	<eva-error-overlay (evaRetryClicked)="onRetry()" />
-	<eva-keyboard-shortcuts-overlay />
-	<eva-cinema-mode />
+<div class="watch-page">
+	<header class="watch-header">
+		<span class="watch-header-logo">EzVidAng</span>
+		<span class="watch-header-subtitle">Component library demo</span>
+	</header>
 
-	<!-- Buffering indicator -->
-	<eva-buffering />
+	<div class="watch-layout" [class.cinema-active]="isCinemaModeActive()">
+		<div class="primary-column">
+			<div class="stage">
+				<eva-player #evaVideoPlayer [id]="'vid'" [evaVideoSources]="[]" [evaVideoConfiguration]="videoConfiguration()"
+					[evaKeyboardShortcutsEnabled]="true" [evaKeyboardShortcutsConfiguration]="keyboardConfig()"
+					[evaVideoTracks]="videoTracks()" [evaLocalStorageEnabled]="true" [evaLocalStorageKey]="'MY_PLAYER'"
+					[evaLocalStorageConfiguration]="{ volume: true, playbackSpeed: true, cinemaMode: true, loop: true }" evaHls
+					[evaHlsSrc]="hlsSource()">
+					<!-- Overlays -->
+					<eva-overlay-play />
+					<eva-error-overlay (evaRetryClicked)="onRetry()" />
+					<eva-keyboard-shortcuts-overlay />
 
-	<!-- Context menu (right-click) -->
-	<eva-context-menu [evaMenuItems]="contextMenuItems" (evaMenuItemClicked)="onContextMenuAction($event)" />
+					<!-- Buffering indicator -->
+					<eva-buffering />
 
-	<!-- Scrub bar with chapters -->
-	<eva-scrub-bar [evaShowTimeOnHover]="true" [evaShowChapters]="true" [evaChapters]="chapters()"
-		[evaThumbnailVtt]="vttFile()" [hideWithControlsContainer]="true">
-		<eva-scrub-bar-buffering-time />
-		<eva-scrub-bar-current-time />
-	</eva-scrub-bar>
+					<!-- Context menu (right-click) -->
+					<eva-context-menu [evaMenuItems]="contextMenuItems" (evaMenuItemClicked)="onContextMenuAction($event)" />
 
-	<!-- Subtitles -->
-	<eva-subtitle-display />
+					<!-- Scrub bar with chapters -->
+					<eva-scrub-bar [evaShowTimeOnHover]="true" [evaShowChapters]="true" [evaChapters]="chapters()"
+						[evaThumbnailVtt]="vttFile()" [hideWithControlsContainer]="true">
+						<eva-scrub-bar-buffering-time />
+						<eva-scrub-bar-current-time />
+					</eva-scrub-bar>
 
-	<!-- Chapter list panel -->
-	<eva-chapter-list [evaChapterListOpen]="isChapterListOpen()" (evaChapterListClose)="isChapterListOpen.set(false)" />
+					<!-- Subtitles -->
+					<eva-subtitle-display />
 
-	<!-- Controls bar -->
-	<eva-controls-container evaUserInteractionEvents [evaAutohide]="true">
-		<eva-play-pause />
-		<eva-backward />
-		<eva-forward />
-		<eva-loop />
-		<eva-picture-in-picture />
+					<!-- Chapter list panel -->
+					<eva-chapter-list [evaChapterListOpen]="isChapterListOpen()"
+						(evaChapterListClose)="isChapterListOpen.set(false)" />
 
-		<eva-active-chapter (evaChapterClicked)="toggleChapterList()" />
+					<!-- Controls bar -->
+					<eva-controls-container evaUserInteractionEvents [evaAutohide]="true">
+						<eva-play-pause />
+						<eva-backward />
+						<eva-forward />
+						<eva-loop />
+						<eva-picture-in-picture />
 
-		<eva-mute />
-		<eva-volume />
+						<eva-active-chapter (evaChapterClicked)="toggleChapterList()" />
 
-		<eva-time-display evaTimeProperty="current" evaTimeFormating="HH:mm:ss" />
-		<eva-remote-playback />
+						<eva-mute />
+						<eva-volume />
 
-		<eva-controls-divider />
+						<eva-time-display evaTimeProperty="current" evaTimeFormating="HH:mm:ss" />
+						<eva-remote-playback />
 
-		<eva-time-display evaTimeProperty="remaining" evaTimeFormating="HH:mm:ss" />
+						<eva-controls-divider />
 
-		<eva-download (evaDownloadClicked)="onDownload($event)" />
-		<eva-screenshot (evaScreenshotCaptured)="onScreenshot($event)" />
-		<eva-track-selector />
-		<eva-playback-speed [evaPlaybackSpeeds]="[0.25, 0.5, 1, 1.5, 2, 4]" />
-		<eva-quality-selector />
-		<eva-settings-panel [evaSettingsMenuItems]="settingsItems()"
-			(evaSettingsMenuItemSelected)="onSettingChanged($event)" />
-		<eva-fullscreen />
-	</eva-controls-container>
-</eva-player>
+						<eva-time-display evaTimeProperty="remaining" evaTimeFormating="HH:mm:ss" />
+
+						<eva-cinema-mode />
+						<eva-download (evaDownloadClicked)="onDownload($event)" />
+						<eva-screenshot (evaScreenshotCaptured)="onScreenshot($event)" />
+						<eva-track-selector />
+						<eva-playback-speed [evaPlaybackSpeeds]="[0.25, 0.5, 1, 1.5, 2, 4]" />
+						<eva-quality-selector />
+						<eva-settings-panel [evaSettingsMenuItems]="settingsItems()"
+							(evaSettingsMenuItemSelected)="onSettingChanged($event)" />
+						<eva-fullscreen />
+					</eva-controls-container>
+				</eva-player>
+			</div>
+
+			<!-- Below-the-player info, mirrors a YouTube watch page's title/description block -->
+			<div class="video-info">
+				<h1 class="video-title">Big Buck Bunny — EzVidAng Feature Showcase</h1>
+
+				<div class="video-meta">
+					<span>128,403 views</span>
+					<span class="dot">&bull;</span>
+					<span>Published Jul 2, 2026</span>
+				</div>
+
+				<div class="video-description">
+					<p>
+						This player is wired up with every control shipped by <strong>ez-vid-ang</strong>: adaptive HLS
+						streaming, chapter markers, multi-language subtitles, a YouTube-style settings panel, keyboard
+						shortcuts, screenshot capture, download, Picture-in-Picture, remote playback (Cast/AirPlay), and
+						cinema mode.
+					</p>
+					<p>
+						Right-click the player for a custom context menu. Open the settings gear for playback speed,
+						loop, and Picture-in-Picture toggles. Press the cinema mode button in the controls bar to dim
+						the page and expand the player edge-to-edge, the same way YouTube's theater mode works.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Sidebar, mirrors a YouTube watch page's "up next" column -->
+		<aside class="secondary-column">
+			<h2 class="secondary-heading">About this demo</h2>
+			<ul class="feature-list">
+				<li>
+					<strong>Adaptive streaming</strong>
+					<span>HLS via hls.js with automatic quality switching through <code>eva-quality-selector</code>.</span>
+				</li>
+				<li>
+					<strong>Chapters</strong>
+					<span>Scrub-bar markers, an active-chapter indicator, and a toggleable chapter list panel.</span>
+				</li>
+				<li>
+					<strong>Subtitles &amp; tracks</strong>
+					<span>Multi-language subtitle tracks switchable from <code>eva-track-selector</code>.</span>
+				</li>
+				<li>
+					<strong>Persistence</strong>
+					<span>Volume, playback speed, cinema mode, and loop are restored from local storage on reload.</span>
+				</li>
+				<li>
+					<strong>Keyboard shortcuts</strong>
+					<span>J/L and arrow-key seeking, with an on-screen cheat sheet overlay.</span>
+				</li>
+				<li>
+					<strong>Cinema mode</strong>
+					<span>Dims the page and floats the player above the backdrop, theater-mode style.</span>
+				</li>
+			</ul>
+		</aside>
+	</div>
+</div>

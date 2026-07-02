@@ -1,6 +1,176 @@
 :host {
 	display: block;
 	width: 100%;
-	height: 100%;
+	min-height: 100%;
 	position: relative;
+	overflow-x: hidden;
+	background: #0f0f0f;
+	font-family: Roboto, Arial, sans-serif;
+}
+
+.watch-page {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+.watch-header {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	padding: 14px 24px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.watch-header-logo {
+	color: white;
+	font-size: 18px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+
+.watch-header-subtitle {
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 13px;
+}
+
+// ─── Watch page grid — primary column (player + info) + sidebar ─────────────
+
+.watch-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 360px;
+	align-items: start;
+	column-gap: 24px;
+	row-gap: 24px;
+	max-width: 1700px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 24px;
+	// grid-template-columns only interpolates smoothly between track lists of
+	// the *same* track count, so cinema mode animates the sidebar track down
+	// to 0px rather than removing it — see `.cinema-active` below.
+	transition: grid-template-columns 0.35s ease, column-gap 0.35s ease;
+
+	@media (max-width: 900px) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+// Cinema mode shrinks the sidebar column to 0px instead of dropping it, so
+// the 2-track → 2-track change animates. The primary column — and with it
+// the player, which is just width:100% of that column — grows to fill the
+// reclaimed space. Nothing leaves document flow.
+.watch-layout.cinema-active {
+	grid-template-columns: minmax(0, 1fr) 0px;
+	column-gap: 0;
+}
+
+.primary-column {
+	min-width: 0;
+}
+
+.stage {
+	width: 100%;
+}
+
+eva-player {
+	display: block;
+	width: 100%;
+}
+
+// ─── Below-the-player info ───────────────────────────────────────────────────
+
+.video-info {
+	margin-top: 16px;
+	padding-bottom: 40px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.video-title {
+	color: white;
+	font-size: 20px;
+	font-weight: 600;
+	margin: 0 0 8px;
+}
+
+.video-meta {
+	display: flex;
+	gap: 8px;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 14px;
+	margin-bottom: 16px;
+}
+
+.video-description {
+	color: rgba(255, 255, 255, 0.85);
+	font-size: 14px;
+	line-height: 1.6;
+	max-width: 800px;
+
+	p {
+		margin: 0 0 12px;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
+// ─── Sidebar ──────────────────────────────────────────────────────────────
+
+.secondary-column {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	overflow: hidden;
+	transition: opacity 0.2s ease;
+}
+
+.watch-layout.cinema-active .secondary-column {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.secondary-heading {
+	color: white;
+	font-size: 15px;
+	font-weight: 600;
+	margin: 0 0 4px;
+}
+
+.feature-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.feature-list li {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 10px 12px;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.feature-list strong {
+	color: white;
+	font-size: 13px;
+}
+
+.feature-list span {
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 12.5px;
+	line-height: 1.5;
+}
+
+.feature-list code {
+	color: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 3px;
+	padding: 1px 4px;
+	font-size: 11.5px;
 }

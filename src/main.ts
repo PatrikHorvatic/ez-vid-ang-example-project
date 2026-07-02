@@ -1,6 +1,11 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
+import { addEvaIcons } from 'ez-vid-ang';
+import { evaAllIcons } from 'ez-vid-ang/icons';
 import { App } from './app/app';
+import { appConfig } from './app/app.config';
+
+addEvaIcons(evaAllIcons);
+
 
 bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+  .catch((err: any) => console.error(err));

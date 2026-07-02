@@ -62,8 +62,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/ez-vid-ang/assets/eva-required-import.scss",
-              "node_modules/ez-vid-ang/assets/eva-icons-and-fonts.scss"
+              "node_modules/ez-vid-ang/assets/eva-required-import.scss"
             ]
           },
           "configurations": {
