@@ -7,21 +7,26 @@
 	<div class="watch-layout" [class.cinema-active]="isCinemaModeActive()">
 		<div class="primary-column">
 			<div class="stage">
-				<eva-player #evaVideoPlayer [id]="'vid'" [evaVideoSources]="[]" [evaVideoConfiguration]="videoConfiguration()"
-					[evaKeyboardShortcutsEnabled]="true" [evaKeyboardShortcutsConfiguration]="keyboardConfig()"
-					[evaVideoTracks]="videoTracks()" [evaLocalStorageEnabled]="true" [evaLocalStorageKey]="'MY_PLAYER'"
-					[evaLocalStorageConfiguration]="{ volume: true, playbackSpeed: true, cinemaMode: true, loop: true }" evaHls
-					[evaHlsSrc]="hlsSource()">
+				<eva-player #evaVideoPlayer [id]="'vid'" [evaVideoSources]="[]"
+					[evaVideoConfiguration]="videoConfiguration()" [evaKeyboardShortcutsEnabled]="true"
+					[evaKeyboardShortcutsConfiguration]="keyboardConfig()" [evaVideoTracks]="videoTracks()"
+					[evaLocalStorageEnabled]="true" [evaLocalStorageKey]="'MY_PLAYER'"
+					[evaLocalStorageConfiguration]="{ volume: true, playbackSpeed: true, cinemaMode: true, loop: true }"
+					evaHls [evaHlsSrc]="hlsSource()">
 					<!-- Overlays -->
 					<eva-overlay-play />
 					<eva-error-overlay (evaRetryClicked)="onRetry()" />
 					<eva-keyboard-shortcuts-overlay />
+					<eva-ended-overlay>
+						<button type="button" class="replay-btn" (click)="replay()">↺ Replay</button>
+					</eva-ended-overlay>
 
 					<!-- Buffering indicator -->
 					<eva-buffering />
 
 					<!-- Context menu (right-click) -->
-					<eva-context-menu [evaMenuItems]="contextMenuItems" (evaMenuItemClicked)="onContextMenuAction($event)" />
+					<eva-context-menu [evaMenuItems]="contextMenuItems"
+						(evaMenuItemClicked)="onContextMenuAction($event)" />
 
 					<!-- Scrub bar with chapters -->
 					<eva-scrub-bar [evaShowTimeOnHover]="true" [evaShowChapters]="true" [evaChapters]="chapters()"
@@ -39,16 +44,16 @@
 
 					<!-- Controls bar -->
 					<eva-controls-container evaUserInteractionEvents [evaAutohide]="true">
-						<eva-play-pause />
-						<eva-backward />
-						<eva-forward />
-						<eva-loop />
-						<eva-picture-in-picture />
+						<eva-play-pause evaTooltip evaTooltipShortcutKey="playPause" />
+						<eva-backward evaTooltip evaTooltipShortcutKey="backwardsKeyOne" />
+						<eva-forward evaTooltip evaTooltipShortcutKey="forwardKeyOne" />
+						<eva-loop evaTooltip />
+						<eva-picture-in-picture evaTooltip />
 
-						<eva-active-chapter (evaChapterClicked)="toggleChapterList()" />
+						<eva-active-chapter evaTooltip (evaChapterClicked)="toggleChapterList()" />
 
-						<eva-mute />
-						<eva-volume />
+						<eva-mute evaTooltip evaTooltipShortcutKey="muteKey" />
+						<eva-volume evaTooltip />
 
 						<eva-time-display evaTimeProperty="current" evaTimeFormating="HH:mm:ss" />
 						<eva-remote-playback />
@@ -57,15 +62,15 @@
 
 						<eva-time-display evaTimeProperty="remaining" evaTimeFormating="HH:mm:ss" />
 
-						<eva-cinema-mode />
-						<eva-download (evaDownloadClicked)="onDownload($event)" />
-						<eva-screenshot (evaScreenshotCaptured)="onScreenshot($event)" />
-						<eva-track-selector />
-						<eva-playback-speed [evaPlaybackSpeeds]="[0.25, 0.5, 1, 1.5, 2, 4]" />
-						<eva-quality-selector />
-						<eva-settings-panel [evaSettingsMenuItems]="settingsItems()"
+						<eva-cinema-mode evaTooltip />
+						<eva-download evaTooltip (evaDownloadClicked)="onDownload($event)" />
+						<eva-screenshot evaTooltip (evaScreenshotCaptured)="onScreenshot($event)" />
+						<eva-track-selector evaTooltip />
+						<eva-playback-speed evaTooltip [evaPlaybackSpeeds]="[0.25, 0.5, 1, 1.5, 2, 4]" />
+						<eva-quality-selector evaTooltip />
+						<eva-settings-panel evaTooltip [evaSettingsMenuItems]="settingsItems()"
 							(evaSettingsMenuItemSelected)="onSettingChanged($event)" />
-						<eva-fullscreen />
+						<eva-fullscreen evaTooltip evaTooltipShortcutKey="fullscreen" />
 					</eva-controls-container>
 				</eva-player>
 			</div>
@@ -89,8 +94,9 @@
 					</p>
 					<p>
 						Right-click the player for a custom context menu. Open the settings gear for playback speed,
-						loop, and Picture-in-Picture toggles. Press the cinema mode button in the controls bar to dim
-						the page and expand the player edge-to-edge, the same way YouTube's theater mode works.
+						loop, and Picture-in-Picture toggles. Press the cinema mode button in the controls bar to
+						collapse the sidebar and grow the player in place, the same way YouTube's theater mode works.
+						Hover any control for a tooltip, and let the video play to the end to see the replay overlay.
 					</p>
 				</div>
 			</div>
@@ -102,7 +108,8 @@
 			<ul class="feature-list">
 				<li>
 					<strong>Adaptive streaming</strong>
-					<span>HLS via hls.js with automatic quality switching through <code>eva-quality-selector</code>.</span>
+					<span>HLS via hls.js with automatic quality switching through
+						<code>eva-quality-selector</code>.</span>
 				</li>
 				<li>
 					<strong>Chapters</strong>
@@ -114,7 +121,8 @@
 				</li>
 				<li>
 					<strong>Persistence</strong>
-					<span>Volume, playback speed, cinema mode, and loop are restored from local storage on reload.</span>
+					<span>Volume, playback speed, cinema mode, and loop are restored from local storage on
+						reload.</span>
 				</li>
 				<li>
 					<strong>Keyboard shortcuts</strong>
@@ -122,7 +130,17 @@
 				</li>
 				<li>
 					<strong>Cinema mode</strong>
-					<span>Dims the page and floats the player above the backdrop, theater-mode style.</span>
+					<span>Collapses the sidebar so the player grows in place — an in-flow resize, not an overlay.</span>
+				</li>
+				<li>
+					<strong>Tooltips</strong>
+					<span>Hover or focus a control for its label and keyboard shortcut, via the <code>evaTooltip</code>
+						directive.</span>
+				</li>
+				<li>
+					<strong>Ended overlay</strong>
+					<span>A replay prompt appears over the player when the video finishes, via
+						<code>eva-ended-overlay</code>.</span>
 				</li>
 			</ul>
 		</aside>

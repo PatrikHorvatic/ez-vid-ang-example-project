@@ -22,6 +22,7 @@ import {
   EvaControlsDivider,
   EvaDownload,
   EvaDownloadEvent,
+  EvaEndedOverlay,
   EvaErrorOverlay,
   EvaForward,
   EvaFullscreen,
@@ -33,7 +34,7 @@ import {
   EvaOverlayPlay,
   EvaPictureInPicture,
   EvaPlaybackSpeed,
-  EvaPlayer,
+  EvaPlayer, EvaTooltip,
   EvaPlayPause,
   EvaQualitySelector,
   EvaRemotePlayback,
@@ -71,7 +72,8 @@ import { Subscription } from 'rxjs';
     EvaContextMenu,
     EvaControlsContainer,
     EvaControlsDivider,
-    EvaDownload,
+    EvaDownload, EvaTooltip,
+    EvaEndedOverlay,
     EvaErrorOverlay,
     EvaForward,
     EvaFullscreen,
@@ -218,6 +220,13 @@ export class TestingPage implements AfterViewInit, OnInit, OnDestroy {
 
   protected onRetry(): void {
     console.log('Retry clicked — video reloading');
+  }
+
+  protected replay(): void {
+    const video = this.api.assignedVideoElement;
+    if (!video) { return; }
+    video.currentTime = 0;
+    video.play().catch(() => { });
   }
 
   // ─── Settings panel ────────────────────────────────────────────────────────

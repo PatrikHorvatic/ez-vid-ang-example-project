@@ -78,6 +78,28 @@ eva-player {
 	width: 100%;
 }
 
+// <eva-ended-overlay> only provides the dimmed container (position, fade,
+// centering) — all content, including this button, is consumer-projected.
+.replay-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 999px;
+	background: white;
+	color: #0f0f0f;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.15s ease, background 0.15s ease;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.85);
+		transform: scale(1.04);
+	}
+}
+
 // ─── Below-the-player info ───────────────────────────────────────────────────
 
 .video-info {
