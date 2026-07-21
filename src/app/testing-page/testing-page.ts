@@ -10,6 +10,7 @@ import {
 import {
   EvaActiveChapter,
   EvaApi,
+  EvaAudioTrackSelector,
   EvaBackward,
   EvaBuffering,
   EvaChapterList,
@@ -65,6 +66,7 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     EvaActiveChapter,
+    EvaAudioTrackSelector,
     EvaBackward,
     EvaBuffering,
     EvaChapterList, EvaRemotePlayback,
@@ -118,7 +120,11 @@ export class TestingPage implements AfterViewInit, OnInit, OnDestroy {
   ]);
 
   protected readonly vttFile = signal('/thumbnails-hls.vtt');
-  protected readonly hlsSource = signal('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8');
+  // protected readonly hlsSource = signal('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8');
+  // protected readonly hlsSource = signal('https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.mp4/.m3u8');
+  // protected readonly hlsSource = signal('https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_adv_example_hevc/master.m3u8');
+  protected readonly hlsSource = signal('https://devstreaming-cdn.apple.com/videos/streaming/examples/adv_dv_atmos/main.m3u8');
+  // protected readonly hlsSource = signal('https://stream.mux.com/v69RSHhFelSm4701snP22dYz2jICy4E4S/low.m3u8');
   // protected readonly hlsSource = signal('https://test-streams.mux.dev/tos_ismc/main.m3u8');
   // protected readonly hlsSource = signal('https://test-streams.mux.dev/pts_shift/master.m3u8');
   // protected readonly hlsSource = signal('https://test-streams.mux.dev/test_001/stream.m3u8');

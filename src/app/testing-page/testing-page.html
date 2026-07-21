@@ -9,8 +9,8 @@
 			<div class="stage">
 				<eva-player #evaVideoPlayer [id]="'vid'" [evaVideoSources]="[]"
 					[evaVideoConfiguration]="videoConfiguration()" [evaKeyboardShortcutsEnabled]="true"
-					[evaKeyboardShortcutsConfiguration]="keyboardConfig()" [evaVideoTracks]="videoTracks()"
-					[evaLocalStorageEnabled]="true" [evaLocalStorageKey]="'MY_PLAYER'"
+					[evaKeyboardShortcutsConfiguration]="keyboardConfig()" [evaLocalStorageEnabled]="true"
+					[evaLocalStorageKey]="'MY_PLAYER'"
 					[evaLocalStorageConfiguration]="{ volume: true, playbackSpeed: true, cinemaMode: true, loop: true }"
 					evaHls [evaHlsSrc]="hlsSource()">
 					<!-- Overlays -->
@@ -66,6 +66,7 @@
 						<eva-download evaTooltip (evaDownloadClicked)="onDownload($event)" />
 						<eva-screenshot evaTooltip (evaScreenshotCaptured)="onScreenshot($event)" />
 						<eva-track-selector evaTooltip />
+						<eva-audio-track-selector />
 						<eva-playback-speed evaTooltip [evaPlaybackSpeeds]="[0.25, 0.5, 1, 1.5, 2, 4]" />
 						<eva-quality-selector evaTooltip />
 						<eva-settings-panel evaTooltip [evaSettingsMenuItems]="settingsItems()"
@@ -118,6 +119,11 @@
 				<li>
 					<strong>Subtitles &amp; tracks</strong>
 					<span>Multi-language subtitle tracks switchable from <code>eva-track-selector</code>.</span>
+				</li>
+				<li>
+					<strong>Audio tracks</strong>
+					<span>Auto-populated from HLS/DASH via <code>eva-audio-track-selector</code>; hides itself when
+						the stream only has one.</span>
 				</li>
 				<li>
 					<strong>Persistence</strong>
