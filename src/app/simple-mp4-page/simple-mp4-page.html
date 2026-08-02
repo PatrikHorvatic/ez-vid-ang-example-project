@@ -1,0 +1,26 @@
+<div class="page">
+	<a class="back-link" routerLink="/">← Back</a>
+
+	<h1 class="page-title">Simple Player — MP4</h1>
+	<p class="page-subtitle">Minimal control set: play/pause, seek, volume, scrub bar, fullscreen.</p>
+
+	<div class="stage">
+		<eva-player id="simple-mp4" [evaVideoSources]="videoSources()">
+			<eva-overlay-play />
+			<eva-buffering />
+
+			<eva-scrub-bar [hideWithControlsContainer]="true">
+			</eva-scrub-bar>
+
+			<eva-controls-container evaUserInteractionEvents [evaAutohide]="true">
+				<eva-play-pause />
+				<eva-backward />
+				<eva-forward />
+				<eva-mute />
+				<eva-volume />
+				<eva-time-display evaTimeProperty="current" evaTimeFormating="HH:mm:ss" />
+				<eva-fullscreen />
+			</eva-controls-container>
+		</eva-player>
+	</div>
+</div>

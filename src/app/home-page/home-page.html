@@ -1,1 +1,34 @@
-<button type="button" (click)="goToVideo()">Go to video</button>
+<div class="home">
+	<header class="home-header">
+		<span class="home-logo">EzVidAng</span>
+		<span class="home-subtitle">Component library demo</span>
+	</header>
+
+	<div class="demo-grid">
+		<a class="demo-card" routerLink="/simple-mp4">
+			<span class="demo-card-title">Simple Player</span>
+			<span class="demo-card-tag">MP4</span>
+			<span class="demo-card-desc">Play/pause, seek, volume, scrub bar, fullscreen — the minimal control set.</span>
+		</a>
+
+		<a class="demo-card" routerLink="/advanced-mp4">
+			<span class="demo-card-title">Advanced Player</span>
+			<span class="demo-card-tag">MP4 + Subtitles</span>
+			<span class="demo-card-desc">Chapters, subtitles, settings panel, keyboard shortcuts, context menu, persistence.</span>
+		</a>
+
+		<a class="demo-card" routerLink="/simple-stream">
+			<span class="demo-card-title">Simple Player</span>
+			<span class="demo-card-tag">HLS</span>
+			<span class="demo-card-desc">Minimal control set over an adaptive HLS stream, with quality selection.</span>
+		</a>
+
+		<a class="demo-card" routerLink="/full-stream">
+			<span class="demo-card-title">Full Player</span>
+			<span class="demo-card-tag">HLS</span>
+			<span class="demo-card-desc">Every control the library ships, over a multi-audio-track adaptive stream.</span>
+		</a>
+	</div>
+
+	<button type="button" class="legacy-link" (click)="goToVideo()">Legacy kitchen-sink demo →</button>
+</div>

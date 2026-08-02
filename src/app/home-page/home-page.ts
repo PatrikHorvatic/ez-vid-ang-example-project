@@ -1,11 +1,12 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'lt-home-page',
   templateUrl: './home-page.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './home-page.scss'
+  styleUrl: './home-page.scss',
+  imports: [RouterLink],
 })
 export class HomePage {
 

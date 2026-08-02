@@ -1,0 +1,26 @@
+<div class="page">
+	<a class="back-link" routerLink="/">← Back</a>
+
+	<h1 class="page-title">Simple Player — HLS Stream</h1>
+	<p class="page-subtitle">Minimal control set over an adaptive HLS source: play/pause, volume, quality, fullscreen.</p>
+
+	<div class="stage">
+		<eva-player id="simple-stream" [evaVideoSources]="[]" evaHls [evaHlsSrc]="hlsSource()">
+			<eva-overlay-play />
+			<eva-buffering />
+
+			<eva-scrub-bar [hideWithControlsContainer]="true">
+				<eva-scrub-bar-buffering-time />
+			</eva-scrub-bar>
+
+			<eva-controls-container evaUserInteractionEvents [evaAutohide]="true">
+				<eva-play-pause />
+				<eva-mute />
+				<eva-volume />
+				<eva-time-display evaTimeProperty="current" evaTimeFormating="HH:mm:ss" />
+				<eva-quality-selector />
+				<eva-fullscreen />
+			</eva-controls-container>
+		</eva-player>
+	</div>
+</div>
