@@ -51,3 +51,37 @@
 		height: 100%;
 	}
 }
+
+.video-switcher {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 16px;
+}
+
+.video-switcher-label {
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 13px;
+}
+
+.video-switcher-button {
+	padding: 6px 14px;
+	border-radius: 6px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background: transparent;
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 13px;
+	cursor: pointer;
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.08);
+	}
+
+	&.active {
+		background: rgba(255, 255, 255, 0.16);
+		border-color: rgba(255, 255, 255, 0.4);
+		color: white;
+	}
+}

@@ -105,7 +105,7 @@ export class AdvancedMp4Page implements AfterViewInit, OnDestroy {
   }
 
   protected readonly videoSources = signal<EvaVideoSource[]>([
-    { type: 'video/mp4', src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
+    { type: 'video/mp4', src: 'https://cdn.radiantmediatechs.com/rmp/media/samples-for-rmp-site/04052024-lac-de-bimont/04052024-Lac-De-Bimont-360p-avc.mp4' },
   ]);
 
   protected readonly videoTracks = signal<EvaTrack[]>([

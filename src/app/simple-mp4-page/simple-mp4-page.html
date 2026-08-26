@@ -23,4 +23,14 @@
 			</eva-controls-container>
 		</eva-player>
 	</div>
+
+	<div class="video-switcher">
+		<span class="video-switcher-label">Switch video (runtime source change):</span>
+		@for (video of sampleVideos; track video.id) {
+		<button type="button" class="video-switcher-button" [class.active]="selectedVideoId() === video.id"
+			(click)="selectVideo(video.id)">
+			{{ video.label }}
+		</button>
+		}
+	</div>
 </div>
