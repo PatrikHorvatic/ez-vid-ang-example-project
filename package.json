@@ -30,7 +30,7 @@
     "@angular/router": "^22.2.0",
     "dashjs": "5.2.1",
     "ez-vid-ang": "../ez-vid-ang/dist/ez-vid-ang",
-    "hls.js": "1.7.1",
+    "hls.js": "1.7.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
