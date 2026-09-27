@@ -7,6 +7,7 @@
 	<div class="stage">
 		<eva-player id="simple-stream" [evaVideoSources]="[]" evaHls [evaHlsSrc]="hlsSource()">
 			<eva-overlay-play />
+			<eva-double-tap-seek />
 			<eva-buffering />
 
 			<eva-scrub-bar [hideWithControlsContainer]="true">

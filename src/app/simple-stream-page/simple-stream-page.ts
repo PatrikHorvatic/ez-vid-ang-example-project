@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import {
   EvaBuffering,
   EvaControlsContainer,
+  EvaDoubleTapSeek,
   EvaFullscreen,
   EvaHlsDirective,
   EvaMute,
@@ -20,7 +21,8 @@ import {
 /**
  * Minimal streaming demo — an adaptive HLS source with just enough controls
  * to show adaptive playback working: play/pause, volume, a buffering-aware
- * scrub bar, quality selection, and fullscreen.
+ * scrub bar, quality selection, and fullscreen. Also demonstrates
+ * double-tap-to-seek working over an HLS-backed video (via EvaHlsDirective).
  */
 @Component({
   selector: 'lt-simple-stream-page',
@@ -30,6 +32,7 @@ import {
   imports: [
     EvaBuffering,
     EvaControlsContainer,
+    EvaDoubleTapSeek,
     EvaFullscreen,
     EvaHlsDirective,
     EvaMute,
